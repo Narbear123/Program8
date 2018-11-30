@@ -27,6 +27,16 @@ int getdir (string dir, vector<string> &files)
 }
 
 
+bool checker(string x[],string y[], int s){
+    for(int i = 0; i < s; i++){
+        if(x[i]!= y[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+
 int main() {
     string dir = string("sm_doc_set");
     vector<string> files;
@@ -56,20 +66,42 @@ int main() {
     }
 
 
-    int f = 0;
-    int l = n;
+    int f1 = 0;
+    int l1 = n;
+    int f2 = 0;
+    int l2 = n;
+
     string arr1[n];
     string arr2[n];
-    for(int i = 2; i < files.size(); i++){
-        for(int j = i + 1; j < files.size(); j++){
+    for(int i = 2; i < files.size(); i++) {
+        //first txt
+        for (int j = i + 1; j < files.size(); j++) { //second txt
+            int x = 0;
+            int sizef = words.at(i).size() - n + 1;
+            int sizes = words.at(j).size() - n + 1;
+            while (x < sizef) {
+                for (int a = 0; a < n; a++) {     //first 6 words of first txt
+                    arr1[a] = words[i][x + a];
+                }
+                int y = x;
+                while (y < sizes) {
+                    for (int b = 0; b < n; b++) {     //first 6 words of second txt
+                        arr2[b] = words[j][y + b];
+                    }
+                    if (checker(arr1, arr2, n) == true) {
+                        //insert to hash
+                    }
+                    y++;
+                }
+                x++;
 
-            for(int a = 0; a<(l-f); a++){
-                arr1[a]= words[i][f + a];
-                arr2[a]= words[j][f + a];
             }
+            int pp =1;
 
         }
+        int yy = 1;
     }
+
 
 
 
