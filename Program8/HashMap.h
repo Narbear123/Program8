@@ -6,108 +6,92 @@
 #define PLAGIARISMCATCHER_HASHMAP_H
 #include<iostream>
 #include<cstdlib>
-#include<string>
+#include<string.h>
 #include<cstdio>
-#include "HashEntry.h"
+#include <list>
+#include<stdio.h>
+#include<vector>
+#include"HashEntry.h"
 using namespace std;
-const int TABLE_SIZE = 129;
 
-class HashMap {
-private:
-    HashEntry **table;
+class Hash
+{
+   // int BUCKET = 128;    // No. of buckets
+
+    // Pointer to an array containing buckets
+    std::vector<HashEntry> table;
 
 public:
-    HashMap() {
-        table = new HashEntry *[TABLE_SIZE];
-        for (int i = 0; i < TABLE_SIZE; i++) {
-            table[i] = NULL;
+    Hash();  // Constructor
+
+    // inserts a key into hash table
+    void insertItem(string str, int value);
+
+    // deletes a key from hash table
+ //   void deleteItem(int key);
+
+    // hash function to map values to key; take string and convert to int index, map to index, value is the document
+    int hashFunction(string str) {
+        int n = str.length();
+        char array[n+1];
+        strcpy(array, str.c_str());
+        int sum = 0;
+
+        for(int i=0;i<n;i+5){
+            sum = sum + array[i];
         }
+
+        return  sum;
     }
 
-    ~HashMap() {
-        for (int i = 0; i < TABLE_SIZE; i++) {
-            if (table[i] != NULL) {
-                HashEntry *prev = NULL;
-                HashEntry *entry = table[i];
-                while (entry != NULL) {
-                    prev = entry;
-                    entry = entry->next;
-                    delete prev;
-                }
-            }
-            delete[] table;
-        }
-    }
 
-    /*
-     * Hash Function
-     */
-    int HashFunc(int key) {
-        return key % TABLE_SIZE;
-    }
-
-    /*
-     * Insert Element at a key
-     */
-    void Insert(int key, int value) {
-        int hash_val = HashFunc(key);
-        if (table[hash_val] == NULL)
-            table[hash_val] = new HashEntry(key, value);
-        else {
-            HashEntry *entry = table[hash_val];
-            while (entry->next != NULL)
-                entry = entry->next;
-            if (entry->key == key)
-                entry->value = value;
-            else
-                entry->next = new HashEntry(key, value);
-        }
-    }
-
-    /*
-     * Search Element at a key
-     */
-    int Find(int key) {
-        int hash_val = HashFunc(key);
-        if (table[hash_val] == NULL)
-            return -1;
-        else {
-            HashEntry *entry = table[hash_val];
-            while (entry != NULL && entry->key != key)
-                entry = entry->next;
-            if (entry == NULL)
-                return -1;
-            else
-                return entry->value;
-        }
-    }
-
-    /*
-     * Delete Element at a key
-     */
-    void Delete(int key) {
-        int hash_val = HashFunc(key);
-        if (table[hash_val] != NULL) {
-            HashEntry *entry = table[hash_val];
-            HashEntry *prev = NULL;
-            while (entry->next != NULL && entry->key != key) {
-                prev = entry;
-                entry = entry->next;
-            }
-            if (entry->key == key) {
-                if (prev == NULL) {
-                    HashEntry *next = entry->next;
-                    delete entry;
-                    table[hash_val] = next;
-                } else {
-                    HashEntry *next = entry->next;
-                    delete entry;
-                    prev->next = next;
-                }
-            }
-        }
-    }
+    void displayHash();
 };
+
+Hash::Hash()
+{
+ //   this->BUCKET;
+   // table = new vector<HashEntry>;
+    for (int i=0; i<20000; i++) {
+        HashEntry x(0,-1);
+        table.push_back(x);
+    }
+
+}
+// Insert a value (the document index) to the key's index in the hash table
+void Hash::insertItem(string str, int value)
+{
+    int index = hashFunction(str);
+   // table[index].push_back(value);
+    HashEntry h(index, value);
+    if(table[index].value == -1){
+        table[index] = h;
+    }
+    else
+    {
+        // = table[index];
+        HashEntry *temp = new HashEntry;
+        temp->value = value;
+        temp->next = NULL;
+        HashEntry *ptr = table[index];
+
+        while(ptr != NULL){
+
+        }
+    }
+}
+
+
+// function to display hash table
+void Hash::displayHash() {
+    for (int i = 0; i < 20; i++) {
+        cout << i;
+        for (auto x : table[i])
+            cout << " --> " << x;
+        cout << endl;
+    }
+}
+
 
 
 #endif //PLAGIARISMCATCHER_HASHMAP_H

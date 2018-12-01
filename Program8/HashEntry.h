@@ -15,6 +15,11 @@ public:
     int key;
     int value;
     HashEntry *next;
+    HashEntry(){
+        int key = 0;
+        int value = 0;
+
+    };
     HashEntry(int key, int value)
     {
         this->key = key;
