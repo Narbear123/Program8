@@ -32,12 +32,12 @@ public:
 
     // hash function to map values to key; take string and convert to int index, map to index, value is the document
     int hashFunction(string str) {
-        int n = str.length();
+        int n = str.size();
         char array[n+1];
         strcpy(array, str.c_str());
         int sum = 0;
 
-        for(int i=0;i<n;i+5){
+        for(int i=0;i<n;i=i+5){
             sum = sum + array[i];
         }
 
@@ -62,34 +62,42 @@ Hash::Hash()
 void Hash::insertItem(string str, int value)
 {
     int index = hashFunction(str);
-   // table[index].push_back(value);
+    HashEntry *temp = new HashEntry;
+    temp->value = value;
+    temp->key = index;
+    temp->next = NULL;
     HashEntry h(index, value);
+   // table[index].push_back(value);
+ //   HashEntry h(index, value);
     if(table[index].value == -1){
         table[index] = h;
     }
     else
     {
         // = table[index];
-        HashEntry *temp = new HashEntry;
-        temp->value = value;
-        temp->next = NULL;
-        HashEntry *ptr = table[index];
+
+        HashEntry *ptr;
+        HashEntry *tail = NULL;
+        ptr = &table[index];
 
         while(ptr != NULL){
-
+            tail = ptr;
+            ptr = ptr->next;
         }
+        tail->next = temp;
+        temp->next = NULL;
     }
 }
 
 
 // function to display hash table
 void Hash::displayHash() {
-    for (int i = 0; i < 20; i++) {
-        cout << i;
-        for (auto x : table[i])
-            cout << " --> " << x;
-        cout << endl;
-    }
+//    for (int i = 0; i < 20; i++) {
+//        cout << i;
+//        for (auto x : table[i])
+//            cout << " --> " << x;
+//        cout << endl;
+//    }
 }
 
 
