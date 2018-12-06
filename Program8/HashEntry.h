@@ -1,9 +1,9 @@
 //
-// Created by Mayna on 11/30/2018.
+// Created by Naris on 12/1/2018.
 //
 
-#ifndef PLAGIARISMCATCHER_HASHENTRY_H
-#define PLAGIARISMCATCHER_HASHENTRY_H
+#ifndef PROGRAM8_HASHENTRY_H
+#define PROGRAM8_HASHENTRY_H
 #include<iostream>
 #include<cstdlib>
 #include<string>
@@ -27,6 +27,4 @@ public:
         this->next = NULL;
     }
 };
-
-
-#endif //PLAGIARISMCATCHER_HASHENTRY_H
+#endif //PROGRAM8_HASHENTRY_H
