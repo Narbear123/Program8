@@ -1,3 +1,6 @@
+
+// Program created by Naris Anukornchaikul and Mayna Nguyen
+
 #include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
@@ -7,7 +10,7 @@
 #include <bits/stdc++.h>
 #include <fstream>
 #include "HashTable.h"
-#include "HashEntry.h"
+
 
 using namespace std;
 
@@ -72,8 +75,8 @@ int main(int argc, char *argv[]) {
             for (int a = 0; a < n; a++) {
                 str = str + words[i][x + a];
             }
-        seg.at(i).push_back(str);
-        x = x + 1;
+            seg.at(i).push_back(str);
+            x = x + 1;
         }
 
     }
@@ -81,7 +84,7 @@ int main(int argc, char *argv[]) {
     checker(seg, mat, threshold);
 
     cout << "done \n";
-    return 0;
+   // return 0;
 }
 
 
@@ -89,24 +92,24 @@ int main(int argc, char *argv[]) {
 
 void checker(vector<vector<string >>& s, int &t, int &o){
     Hash cheat;
-        for(int i = 0; i<s.size(); i++){    //first text
-            for(int j = 0; j<s.at(i).size(); j++){
-                cheat.insertItem(s.at(i).at(j), i);
+    for(int i = 0; i<s.size(); i++){    //first text
+        for(int j = 0; j<s.at(i).size(); j++){
+            cheat.insertItem(s.at(i).at(j), i);
+        }
+    }
+    int cou = 0;
+    int res[t][t];
+    for(int i = 0 ; i < t; i++){
+        for(int j = i+1; j < t; j++){
+            res[i][j] = cheat.numSim(i,j);
+            if(res[i][j]>o){
+                cout << files[i] << " and " << files[j] << " " <<  res[i][j] <<" times\n";
+                cou++;
             }
         }
-        int cou = 0;
-        int res[t][t];
-        for(int i = 0 ; i < t; i++){
-            for(int j = i+1; j < t; j++){
-                res[i][j] = cheat.numSim(i,j);
-                if(res[i][j]>o){
-                    cout << files[i] << " and " << files[j] << " " <<  res[i][j] <<" times\n";
-                    cou++;
-                }
-            }
     }
 
-    cout << cou << "sets \n";
+    cout << cou << " sets \n";
 
 
 
