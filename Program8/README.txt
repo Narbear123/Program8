@@ -2,6 +2,7 @@
 
 This program was written by Naris Anukornchaikul & Mayna Nguyen.
 
+BEFORE RUNNING THE PROGRAM: type "module load gcc"
 To run the program, go to the directory of the program where the files are. Type "make". To run the program, type
 ./plagiarismCatcher path/to/files 6 200
 where the input can be changed as described before.
